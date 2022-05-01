@@ -3,7 +3,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { Query } from './query.js';
 
-const pyramid = `
+const welcomeMessage = `
 
 
                       /\\
@@ -34,10 +34,10 @@ const sqlConnect = {
 }
 
 const init = () => {
-    console.log(pyramid)
+    console.log(welcomeMessage);
     const db = mysql.createConnection(sqlConnect, console.log(`\n...connected to employee tracker database\n`));
     const dbQuery = new Query(db);
-    dbQuery.getEmployees();
+    dbQuery.updateEmployee(5, 5)
 }
 
 init();
