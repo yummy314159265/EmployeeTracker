@@ -37,7 +37,8 @@ const init = () => {
     console.log(welcomeMessage);
     const db = mysql.createConnection(sqlConnect, console.log(`\n...connected to employee tracker database\n`));
     const dbQuery = new Query(db);
-    dbQuery.updateEmployee(5, 5)
+    dbQuery.displayEmployeesByDepartment();
+    db.end();
 }
 
 init();

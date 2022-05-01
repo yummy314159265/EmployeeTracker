@@ -14,36 +14,6 @@ class Query {
         }
     }
 
-    async getDepartments () {
-        const sql = `SELECT * from department`;
-
-        try {
-            return await this.query(sql);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async getRoles () {
-        const sql = `SELECT * from role`;
-        
-        try {
-            return await this.query(sql);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async getEmployees () {
-        const sql = `SELECT * from employee`;
-        
-        try {
-            return await this.query(sql);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     async queryAndDisplay (sql, tableName, ...params) {
         const result = await this.query(sql, params);   
         console.table(tableName, result[0]);
@@ -76,7 +46,8 @@ class Query {
             JOIN 
                 role ON e.role_id = role.id
             JOIN 
-                department ON role.department_id = department.id;
+                department ON role.department_id = department.id
+            ORDER BY e.id;
         `;
         
         this.queryAndDisplay(sql, 'Employees');
@@ -109,11 +80,76 @@ class Query {
         this.displayEmployees();
     }
 
-    updateEmployee (employeeID, roleID) {
-        const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
+    deleteDepartment (id) {
+        const sql = `DELETE FROM department WHERE id = ?`;
+        this.query(sql, id);
+        this.displayDepartments();
+    }
+
+    deleteRole (id) {
+        const sql = `DELETE FROM role WHERE id = ?`;
+        this.query(sql, id);
+        this.displayRoles();
+    }
+
+    deleteEmployee (id) {
+        const sql = `DELETE FROM employee WHERE id = ?`;
+        this.query(sql, id);
+        this.displayEmployees();
+    }
+
+    updateEmployeeRole (employeeID, roleID) {
+        const sql = `UPDATE employee SET role_id = ? WHERE id = ?;`;
 
         this.query(sql, roleID, employeeID);
         this.displayEmployees();
+    }
+
+    updateEmployeeManager (employeeID, managerID) {
+        const sql = `UPDATE employee SET manager_id = ? WHERE id = ?;`;
+
+        this.query(sql, managerID, employeeID);
+        this.displayEmployees();
+    }
+
+    displayEmployeesByManager () {
+        const sql = `            
+            SELECT 
+                CONCAT(m.last_name, ', ', m.first_name) AS Manager,
+                m.id AS "Manager ID",
+                CONCAT(e.last_name, ', ', e.first_name) AS Subordinate,
+                e.id AS ID
+            FROM employee m
+            JOIN employee e
+            ON m.id = e.manager_id
+            ORDER BY e.manager_id;
+        `;
+
+        this.queryAndDisplay(sql, 'Employees by Manager');
+    }
+
+    displayEmployeesByDepartment () {
+        const sql = `            
+            SELECT 
+                department.name AS Department,
+                department.id AS "Department ID",
+                CONCAT(employee.last_name, ', ', employee.first_name) AS Employee,
+                employee.id AS "Employee ID"
+            FROM employee
+            JOIN role ON employee.role_id = role.id
+            JOIN department ON role.department_id = department.id
+            ORDER BY department.id;
+        `;
+
+        this.queryAndDisplay(sql, 'Employees by Department');
+    }
+
+    displayDepartmentByBudget () {
+        const sql = `
+            SELECT
+                SUM()
+
+        `
     }
 }
 
