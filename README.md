@@ -6,7 +6,7 @@
   
   Employee Tracker is a database management application to track employees through any organization
 
-  [Video Demo](https://watch.screencastify.com/v/mZJmOHiQjIQk2JIWK9fn)
+  [Video Demo](https://watch.screencastify.com/v/YM5U44eVLwBDcqnFPgnf)
   
   ## Table of Contents
   
