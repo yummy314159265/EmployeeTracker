@@ -21,7 +21,7 @@
   
   ## Usage
   
-  Use the command node index.js within the root folder of the application to run Employee Tracker
+  Use the command 'node index.js' within the root folder of the application to run Employee Tracker
 
   ## Credits
   
