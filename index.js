@@ -5,7 +5,7 @@ const init = () => {
     const sqlConnect = {
         host: 'localhost',
         user: 'root',
-        password: 'realpassword',
+        password: '1013',
         database: 'employeetracker_db'
     }
 
